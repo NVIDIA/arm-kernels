@@ -2,7 +2,7 @@
 SVE_BIT_WIDTH = 128
 
 
-CXX = g++-12
+CXX = g++
 CXXFLAGS = -O -march=armv8-a+sve -msve-vector-bits=$(SVE_BIT_WIDTH)
 LD = $(CXX)
 
@@ -28,6 +28,14 @@ EXE = \
 	fp64_sve_pred_fmul.x \
 	fp64_sve_indexed_fmla.x \
 	fp64_sve_pred_fmla.x \
+	fp16_scalar_fmul.x \
+	fp16_scalar_fmadd.x \
+	fp16_neon_fmul.x \
+	fp16_neon_fmla.x \
+	fp16_sve_fmul.x \
+	fp16_sve_pred_fmul.x \
+	fp16_sve_indexed_fmla.x \
+	fp16_sve_pred_fmla.x
 
 
 all: $(EXE)
@@ -85,6 +93,31 @@ kernels/fp64_sve_indexed_fmla.cpp: $(KGEN) $(MAKEFILE)
 
 kernels/fp64_sve_pred_fmla.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) $$(($(SVE_BIT_WIDTH)/64)) 2 16 4 "fmla" "z%d.d" "range(0,16)" "p0/m" "None" "z%d.d" "range(8,24)" "z%d.d" "range(16,32)" > $@
+
+kernels/fp16_scalar_fmul.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) 1 1 16 4 "fmul" "h%d" "range(0,16)" "h%d" "range(8,24)" "h%d" "range(16,32)" > $@
+
+kernels/fp16_scalar_fmadd.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) 1 2 16 4 "fmadd" "h%d" "range(0,16)" "h%d" "range(8,24)" "h%d" "range(16,32)" "h%d" "range(0,16)" > $@
+
+kernels/fp16_neon_fmul.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) 8 1 16 4 "fmul" "v%d.8h" "range(0,16)" "v%d.8h" "range(8,24)" "v%d.8h" "range(16,32)" > $@
+
+kernels/fp16_neon_fmla.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) 8 2 16 4 "fmla" "v%d.8h" "range(0,16)" "v%d.8h" "range(8,24)" "v%d.8h" "range(16,32)" > $@
+
+kernels/fp16_sve_fmul.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) $$(($(SVE_BIT_WIDTH)/16)) 1 16 4 "fmul" "z%d.h" "range(0,16)" "z%d.h" "range(8,24)" "z%d.h" "range(16,32)" > $@
+
+kernels/fp16_sve_pred_fmul.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) $$(($(SVE_BIT_WIDTH)/16)) 1 16 4 "fmul" "z%d.h" "range(0,16)" "p0/m" "None" "z%d.h" "range(0,16)" "z%d.h" "range(8,24)" > $@
+
+kernels/fp16_sve_indexed_fmla.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) $$(($(SVE_BIT_WIDTH)/16)) 2 8 8 "fmla" "z%d.h" "range(0,8)" "z%d.h" "[i%8 for i in range(2,10)]" "z%d.h[0]" "[i%8 for i in range(4,12)]" > $@
+
+kernels/fp16_sve_pred_fmla.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) $$(($(SVE_BIT_WIDTH)/16)) 2 16 4 "fmla" "z%d.h" "range(0,16)" "p0/m" "None" "z%d.h" "range(8,24)" "z%d.h" "range(16,32)" > $@
+
 
 
 
