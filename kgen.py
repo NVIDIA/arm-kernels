@@ -9,6 +9,11 @@ import sys
 USAGE = "Usage: lanes ops_per_lane count unroll opcode [operand (expr|None)]..."
 
 KERNEL_FILE_TEMPLATE = """
+//
+// Copyright (c) 2023 NVIDIA Corporation
+// Author: John Linford <jlinford@nvidia.com>
+// 
+
 const char * description = "%(descr)s";
 int lanes = %(lanes)s;
 int lane_ops = %(lane_ops)s;

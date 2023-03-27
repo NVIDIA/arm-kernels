@@ -1,4 +1,2 @@
 *.o
 *.x
-kernels/*.cpp
-scratch.txt
