@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 #
-# Copyright NVIDIA March 2023
-#
-# John Linford <jlinford@nvidia.com>
-#
+# Copyright (c) 2023 NVIDIA Corporation
+# Author: John Linford <jlinford@nvidia.com>
+# 
 
 import sys
 
