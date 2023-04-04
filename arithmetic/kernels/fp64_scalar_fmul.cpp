@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmul d13, d21, d29 \n\t"
         "fmul d14, d22, d30 \n\t"
         "fmul d15, d23, d31 \n\t"
+        : /* no input */
+        : /* no output */
+        : "d0", "d1", "d10", "d11", "d12", "d13", "d14", "d15", "d16", "d17", "d18", "d19", "d2", "d20", "d21", "d22", "d23", "d24", "d25", "d26", "d27", "d28", "d29", "d3", "d30", "d31", "d4", "d5", "d6", "d7", "d8", "d9"
         );
     }
 }

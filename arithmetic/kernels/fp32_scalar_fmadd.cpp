@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmadd s13, s21, s29, s13 \n\t"
         "fmadd s14, s22, s30, s14 \n\t"
         "fmadd s15, s23, s31, s15 \n\t"
+        : /* no input */
+        : /* no output */
+        : "s0", "s1", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "s2", "s20", "s21", "s22", "s23", "s24", "s25", "s26", "s27", "s28", "s29", "s3", "s30", "s31", "s4", "s5", "s6", "s7", "s8", "s9"
         );
     }
 }

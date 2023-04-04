@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmla z13.s, p0/m, z21.s, z29.s \n\t"
         "fmla z14.s, p0/m, z22.s, z30.s \n\t"
         "fmla z15.s, p0/m, z23.s, z31.s \n\t"
+        : /* no input */
+        : /* no output */
+        : "z0", "z1", "z10", "z11", "z12", "z13", "z14", "z15", "z16", "z17", "z18", "z19", "z2", "z20", "z21", "z22", "z23", "z24", "z25", "z26", "z27", "z28", "z29", "z3", "z30", "z31", "z4", "z5", "z6", "z7", "z8", "z9"
         );
     }
 }

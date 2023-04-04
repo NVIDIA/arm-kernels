@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmla z5.d, z7.d, z1.d[0] \n\t"
         "fmla z6.d, z0.d, z2.d[0] \n\t"
         "fmla z7.d, z1.d, z3.d[0] \n\t"
+        : /* no input */
+        : /* no output */
+        : "z0", "z1", "z2", "z3", "z4", "z5", "z6", "z7"
         );
     }
 }

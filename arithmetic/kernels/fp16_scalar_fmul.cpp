@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmul h13, h21, h29 \n\t"
         "fmul h14, h22, h30 \n\t"
         "fmul h15, h23, h31 \n\t"
+        : /* no input */
+        : /* no output */
+        : "h0", "h1", "h10", "h11", "h12", "h13", "h14", "h15", "h16", "h17", "h18", "h19", "h2", "h20", "h21", "h22", "h23", "h24", "h25", "h26", "h27", "h28", "h29", "h3", "h30", "h31", "h4", "h5", "h6", "h7", "h8", "h9"
         );
     }
 }

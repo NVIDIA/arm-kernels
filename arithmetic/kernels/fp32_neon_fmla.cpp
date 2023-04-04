@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmla v13.4s, v21.4s, v29.4s \n\t"
         "fmla v14.4s, v22.4s, v30.4s \n\t"
         "fmla v15.4s, v23.4s, v31.4s \n\t"
+        : /* no input */
+        : /* no output */
+        : "v0", "v1", "v10", "v11", "v12", "v13", "v14", "v15", "v16", "v17", "v18", "v19", "v2", "v20", "v21", "v22", "v23", "v24", "v25", "v26", "v27", "v28", "v29", "v3", "v30", "v31", "v4", "v5", "v6", "v7", "v8", "v9"
         );
     }
 }

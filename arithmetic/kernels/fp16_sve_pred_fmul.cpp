@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmul z13.h, p0/m, z13.h, z21.h \n\t"
         "fmul z14.h, p0/m, z14.h, z22.h \n\t"
         "fmul z15.h, p0/m, z15.h, z23.h \n\t"
+        : /* no input */
+        : /* no output */
+        : "z0", "z1", "z10", "z11", "z12", "z13", "z14", "z15", "z16", "z17", "z18", "z19", "z2", "z20", "z21", "z22", "z23", "z3", "z4", "z5", "z6", "z7", "z8", "z9"
         );
     }
 }

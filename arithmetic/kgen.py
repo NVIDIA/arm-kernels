@@ -25,6 +25,9 @@ void kernel(unsigned long iters)
     for (unsigned long i=0; i<iters; ++i) {
         asm volatile (
 %(body)s
+        : /* no input */
+        : /* no output */
+        : %(clobber)s
         );
     }
 }
@@ -45,13 +48,24 @@ def int_arg(val, errmsg):
 
 def generate_c_file(lanes, ops_per_lane, count, unroll, opcode, formats, values):
     lines = []
+    clobber = set()
     for i in range(count):
-        operands = ", ".join([fmt % val[i] if val is not None else fmt for (fmt, val) in zip(formats, values)])
-        lines.append('        "%s %s \\n\\t"' % (opcode, operands))
+        operands = [fmt % val[i] if val is not None else fmt for (fmt, val) in zip(formats, values)]
+        registers = [x.split(".")[0] for x in operands if not x.startswith("p")]
+        clobber |= set(registers)
+        lines.append('        "%s %s \\n\\t"' % (opcode, ", ".join(operands)))
     lines *= unroll
     body = "\n".join(lines)
     descr = " ".join(sys.argv[5:])
-    print(KERNEL_FILE_TEMPLATE % {"descr": descr, "lanes": lanes, "lane_ops": ops_per_lane, "block_inst": count, "unroll": unroll, "body": body})
+    clobber = ", ".join(sorted(['"%s"' % x for x in clobber]))
+    print(KERNEL_FILE_TEMPLATE % {
+            "descr": descr, 
+            "lanes": lanes, 
+            "lane_ops": ops_per_lane, 
+            "block_inst": count, 
+            "unroll": unroll, 
+            "body": body,
+            "clobber": clobber})
 
 
 def main(argv):

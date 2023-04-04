@@ -78,6 +78,9 @@ void kernel(unsigned long iters)
         "fmul v13.8h, v21.8h, v29.8h \n\t"
         "fmul v14.8h, v22.8h, v30.8h \n\t"
         "fmul v15.8h, v23.8h, v31.8h \n\t"
+        : /* no input */
+        : /* no output */
+        : "v0", "v1", "v10", "v11", "v12", "v13", "v14", "v15", "v16", "v17", "v18", "v19", "v2", "v20", "v21", "v22", "v23", "v24", "v25", "v26", "v27", "v28", "v29", "v3", "v30", "v31", "v4", "v5", "v6", "v7", "v8", "v9"
         );
     }
 }
