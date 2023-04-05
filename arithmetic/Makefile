@@ -36,6 +36,7 @@ EXE = \
 KGEN = ./kgen.py
 MAKEFILE = ./Makefile
 
+SVE_BIT_WIDTH := $(shell $(MAKE) -C ../util -s print_sve_bit_width)
 
 
 all: $(EXE)
@@ -117,6 +118,7 @@ kernels/fp16_sve_indexed_fmla.cpp: $(KGEN) $(MAKEFILE)
 
 kernels/fp16_sve_pred_fmla.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) $$(($(SVE_BIT_WIDTH)/16)) 2 16 4 "fmla" "z%d.h" "range(0,16)" "p0/m" "None" "z%d.h" "range(8,24)" "z%d.h" "range(16,32)" > $@
+
 
 
 %.x: $(DRIVER_OBJ) kernels/%.o

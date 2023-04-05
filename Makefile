@@ -1,14 +1,18 @@
 
-SUITES = \
+DIRS = \
+	util \
 	arithmetic
 
-all: $(SUITES)
+all: $(DIRS)
 
 clean:
-	for i in $(SUITES) ; do $(MAKE) -C $$i clean ; done
+	for i in $(DIRS) ; do $(MAKE) -C $$i clean ; done
+
+util:
+	$(MAKE) -C $@
 
 arithmetic:
 	$(MAKE) -C $@
 
 
-.PHONY: $(SUITES)
+.PHONY: $(DIRS)
