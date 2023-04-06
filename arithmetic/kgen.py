@@ -38,15 +38,15 @@ def usage_error(*args, **kwargs):
     sys.exit(100)
 
 
-def generate_block(lines, clobber, block_ops, ins):
+def generate_block(lines, clobber, block_ops, blk):
     def ignore_register(x):
         return x.startswith("p")
     indent = 8*" "
-    count = ins.count
-    opcode = ins.opcode
-    formats = ins.operand[0::2]
+    count = blk.count
+    opcode = blk.opcode
+    formats = blk.operand[0::2]
     values = []
-    for val in ins.operand[1::2]:
+    for val in blk.operand[1::2]:
         try:
             evaluated = eval(val)
         except SyntaxError as err:
@@ -58,38 +58,38 @@ def generate_block(lines, clobber, block_ops, ins):
         operands = [fmt % val[i] if val is not None else fmt for (fmt, val) in zip(formats, values)]
         clobber |= set([x.split(".")[0] for x in operands if not ignore_register(x)])
         lines.append('%s"%s %s \\n\\t"' % (indent, opcode, ", ".join(operands)))
-    if ins.isa == "SCALAR":
+    if blk.isa == "SCALAR":
         lanes = "1"
-    elif ins.isa == "NEON":
-        lanes = "(128/%s)" % ins.typebits
-    elif ins.isa == "SVE":
-        lanes = "(8*svcntb()/%s)" % ins.typebits
-    block_ops.append("(%s*(%s*%s))" % (ins.count, ins.laneops, lanes))
+    elif blk.isa == "NEON":
+        lanes = "(128/%s)" % blk.typebits
+    elif blk.isa == "SVE":
+        lanes = "(8*svcntb()/%s)" % blk.typebits
+    block_ops.append("(%s*(%s*%s))" % (blk.count, blk.laneops, lanes))
 
 
-def describe(unroll, instructions):
+def describe(unroll, blocks):
     parts = ["%d(" % unroll]
-    for ins in instructions:
-        parts.append("%d(%s_%s_%db)" % (ins.count, ins.isa, ins.opcode.upper(), ins.typebits))
+    for blk in blocks:
+        parts.append("%d(%s_%s_%db)" % (blk.count, blk.isa, blk.opcode.upper(), blk.typebits))
     parts.append(")")
     return " ".join(parts)
 
 
-def generate(unroll, instructions):
+def generate(unroll, blocks):
     lines = []
     clobber = set()
     headers = set()
     block_ops = []
-    for ins in instructions:
-        generate_block(lines, clobber, block_ops, ins)
-        if ins.isa == "SVE":
+    for blk in blocks:
+        generate_block(lines, clobber, block_ops, blk)
+        if blk.isa == "SVE":
             headers.add("arm_sve.h")
     block_ops = "+".join(block_ops)
     block_inst = str(len(lines))
     lines *= unroll
     headers = "\n".join(["#include <%s>" % x for x in headers])
     body = "\n".join(lines)
-    descr = describe(unroll, instructions)
+    descr = describe(unroll, blocks)
     clobber = ", ".join(sorted(['"%s"' % x for x in clobber]))
     print(KERNEL_FILE_TEMPLATE % {
             "headers": headers,
@@ -102,27 +102,27 @@ def generate(unroll, instructions):
 
 
 def parse_args(args):
-    ins_parser = argparse.ArgumentParser(prog="", add_help=False)
-    ins_parser.add_argument("isa", choices=["SCALAR", "SVE", "NEON"])
-    ins_parser.add_argument("typebits", type=int, help="Size of the destination datatype in bits")
-    ins_parser.add_argument("laneops", type=int, help="Operations performed per lane")
-    ins_parser.add_argument("count", type=int, help="Number of times to emit this instruction")
-    ins_parser.add_argument("opcode", help="Instruction opcode")
-    ins_parser.add_argument("operand", nargs="+", help="Instruction operands")
-    ins_help = ins_parser.format_usage().replace("usage:  ", "")
+    block_parser = argparse.ArgumentParser(prog="", add_help=False)
+    block_parser.add_argument("isa", choices=["SCALAR", "SVE", "NEON"], help="Instruction ISA")
+    block_parser.add_argument("typebits", type=int, help="Size of the operation datatype in bits")
+    block_parser.add_argument("laneops", type=int, help="Operations performed per lane")
+    block_parser.add_argument("count", type=int, help="Instructions in the block")
+    block_parser.add_argument("opcode", help="Instruction opcode")
+    block_parser.add_argument("operand", nargs="+", help="Instruction operands")
+    block_help = block_parser.format_usage().replace("usage: ", "")
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--unroll", type=int, help="Number of times to unroll the loop", default=4)
-    parser.add_argument("-i", required=True, nargs="+", metavar="instruction", dest="instructions", action="append", help=ins_help)
+    parser.add_argument("-b", required=True, nargs="+", metavar="block_template", dest="blocks", action="append", help=block_help)
 
     parsed = parser.parse_args(args)
-    parsed.instructions = [ins_parser.parse_args(ins) for ins in parsed.instructions]
+    parsed.blocks = [block_parser.parse_args(blk) for blk in parsed.blocks]
     return parsed
 
 
 def main(*args, **kwargs):
     parsed = parse_args(*args)
-    generate(parsed.unroll, parsed.instructions)
+    generate(parsed.unroll, parsed.blocks)
 
 
 if __name__ == "__main__":
