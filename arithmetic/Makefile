@@ -43,7 +43,10 @@ run: $(EXE)
 	for x in $(EXE) ; do time ./$$x ; done
 
 clean:
-	rm -f kernels/*.cpp kernels/*.o $(DRIVER_OBJ) $(EXE)
+	rm -f kernels/*.o $(DRIVER_OBJ) $(EXE)
+
+veryclean: clean
+	rm -f kernels/*.cpp
 
 kernels/fp32_scalar_fmul.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) -b SCALAR 32 1 16 "fmul" "s%d" "range(0,16)" "s%d" "range(8,24)" "s%d" "range(16,32)" > $@
