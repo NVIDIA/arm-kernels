@@ -2,13 +2,13 @@
 //
 // Copyright (c) 2023 NVIDIA Corporation
 // Author: John Linford <jlinford@nvidia.com>
-// 
+//
 
-const char * description = "fmul d%d range(0,16) d%d range(8,24) d%d range(16,32)";
-int lanes = 1;
-int lane_ops = 1;
-int block_inst = 16;
-int unroll = 4;
+
+const char * description = "4( 16(SCALAR_FMUL_64b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(1*1));
+unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
 {

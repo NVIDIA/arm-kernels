@@ -9,9 +9,8 @@
 #include <cstdlib>
 
 extern const char * description;
-extern int lanes;
-extern int lane_ops;
 extern int block_inst;
+extern int block_ops;
 extern int unroll;
 extern void kernel(unsigned long);
 
@@ -21,8 +20,10 @@ int main(int argc, char ** argv)
 
     const uint64_t iters = 100000000ul;
 
-	const uint64_t kernel_ins = block_inst * unroll;
-    const uint64_t kernel_ops = lanes * lane_ops * kernel_ins * iters;
+    const uint64_t iter_inst = unroll * block_inst;
+    const uint64_t iter_ops = unroll * block_ops;
+	const uint64_t kernel_ins = iters * iter_inst;
+    const uint64_t kernel_ops = iters * iter_ops;
 
     auto start = chrono::steady_clock::now();
     kernel(iters);
@@ -32,10 +33,15 @@ int main(int argc, char ** argv)
 
     double gops = kernel_ops / (seconds * 1e9);
 
-	cout << description << endl;
-	cout << kernel_ins << " Instructions per iteration" << endl;
-    cout << kernel_ops << " Ops in " << seconds << " seconds" << endl;
-    cout << gops << " GOps/second" << endl;
+    const char sep = ';';
+	cout << description << sep << endl;
+    cout << "Iterations" << sep << iters << endl;
+    cout << "Total Inst" << sep << kernel_ins << endl;
+    cout << "Total Ops" << sep << kernel_ops << endl;
+    cout << "Inst/Iter" << sep << iter_inst << endl;
+    cout << "Ops/Iter" << sep << iter_ops << endl;
+    cout << "Seconds" << sep << seconds << endl;
+	cout << "GOps/sec" << sep << gops << endl;
 
     return 0;
 }

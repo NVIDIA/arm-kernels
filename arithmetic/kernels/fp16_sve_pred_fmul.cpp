@@ -2,13 +2,13 @@
 //
 // Copyright (c) 2023 NVIDIA Corporation
 // Author: John Linford <jlinford@nvidia.com>
-// 
+//
+#include <arm_sve.h>
 
-const char * description = "fmul z%d.h range(0,16) p0/m None z%d.h range(0,16) z%d.h range(8,24)";
-int lanes = 8;
-int lane_ops = 1;
-int block_inst = 16;
-int unroll = 4;
+const char * description = "4( 16(SVE_FMUL_16b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(1*(8*svcntb()/16)));
+unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
 {

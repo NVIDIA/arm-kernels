@@ -2,13 +2,13 @@
 //
 // Copyright (c) 2023 NVIDIA Corporation
 // Author: John Linford <jlinford@nvidia.com>
-// 
+//
 
-const char * description = "fmla v%d.2d range(0,16) v%d.2d range(8,24) v%d.2d range(16,32)";
-int lanes = 2;
-int lane_ops = 2;
-int block_inst = 16;
-int unroll = 4;
+
+const char * description = "4( 16(NEON_FMLA_64b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(2*(128/64)));
+unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
 {

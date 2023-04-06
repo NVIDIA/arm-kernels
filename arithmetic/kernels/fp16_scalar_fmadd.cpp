@@ -2,13 +2,13 @@
 //
 // Copyright (c) 2023 NVIDIA Corporation
 // Author: John Linford <jlinford@nvidia.com>
-// 
+//
 
-const char * description = "fmadd h%d range(0,16) h%d range(8,24) h%d range(16,32) h%d range(0,16)";
-int lanes = 1;
-int lane_ops = 2;
-int block_inst = 16;
-int unroll = 4;
+
+const char * description = "4( 16(SCALAR_FMADD_16b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(2*1));
+unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
 {
