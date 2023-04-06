@@ -40,7 +40,7 @@ def usage_error(*args, **kwargs):
 
 def generate_block(lines, clobber, block_ops, blk):
     def ignore_register(x):
-        return x.startswith("p")
+        return x[0] not in ("x", "w", "v", "z", "d", "s", "h")
     indent = 8*" "
     count = blk.count
     opcode = blk.opcode
