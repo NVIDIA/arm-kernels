@@ -36,8 +36,6 @@ EXE = \
 KGEN = ./kgen.py
 MAKEFILE = ./Makefile
 
-SVE_BIT_WIDTH := $(shell $(MAKE) -C ../util -s print_sve_bit_width)
-
 
 all: $(EXE)
 
