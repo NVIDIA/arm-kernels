@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 #
+# SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2023, NVIDIA CORPORATION. All rights reserved.
 # Author: John Linford <jlinford@nvidia.com>
 # 
@@ -9,6 +10,7 @@ import argparse
 
 KERNEL_FILE_TEMPLATE = """
 //
+// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) 2023, NVIDIA CORPORATION. All rights reserved.
 // Author: John Linford <jlinford@nvidia.com>
 //

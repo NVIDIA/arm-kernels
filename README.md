@@ -11,9 +11,9 @@ $ ./arithmetic/fp64_neon_fmla.x
 ```
 
 ## License
-This code is provided under the 3-Clause BSD License.
+This code is provided under the BSD-3 License.
 
-Copyright (c) 2023, NVIDIA CORPORATION. All rights reserved.
+Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
 Author: John Linford <jlinford@nvidia.com>
 
