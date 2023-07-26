@@ -8,6 +8,12 @@ include ../config.mk
 DRIVER_OBJ = driver.o
 
 EXE = \
+	w32_scalar_add.x \
+	w32_scalar_mul.x \
+	w32_scalar_madd.x \
+	x64_scalar_add.x \
+	x64_scalar_mul.x \
+	x64_scalar_madd.x \
 	fp32_scalar_fmul.x \
 	fp32_scalar_fmadd.x \
 	fp32_neon_fmul.x \
@@ -47,6 +53,24 @@ clean:
 
 veryclean: clean
 	rm -f kernels/*.cpp
+
+kernels/w32_scalar_add.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SCALAR 32 1 8 "add" "w%d" "range(0,8)" "w%d" "range(4,12)" "w%d" "range(8,16)" > $@
+
+kernels/w32_scalar_mul.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SCALAR 32 1 8 "mul" "w%d" "range(0,8)" "w%d" "range(4,12)" "w%d" "range(8,16)" > $@
+
+kernels/w32_scalar_madd.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SCALAR 32 2 8 "madd" "w%d" "range(0,8)" "w%d" "range(4,12)" "w%d" "range(8,16)" "w%d" "range(12,20)" > $@
+
+kernels/x64_scalar_add.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SCALAR 64 1 8 "add" "x%d" "range(0,8)" "x%d" "range(4,12)" "x%d" "range(8,16)" > $@
+
+kernels/x64_scalar_mul.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SCALAR 64 1 8 "mul" "x%d" "range(0,8)" "x%d" "range(4,12)" "x%d" "range(8,16)" > $@
+
+kernels/x64_scalar_madd.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SCALAR 32 2 8 "madd" "x%d" "range(0,8)" "x%d" "range(4,12)" "x%d" "range(8,16)" "x%d" "range(12,20)" > $@
 
 kernels/fp32_scalar_fmul.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) -b SCALAR 32 1 16 "fmul" "s%d" "range(0,16)" "s%d" "range(8,24)" "s%d" "range(16,32)" > $@
