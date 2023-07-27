@@ -16,6 +16,7 @@ EXE = \
 	x64_scalar_madd.x \
 	fp32_scalar_fmul.x \
 	fp32_scalar_fmadd.x \
+	u8_neon_add.x \
 	fp32_neon_fmul.x \
 	fp32_neon_fmla.x \
 	fp32_sve_fmul.x \
@@ -37,7 +38,8 @@ EXE = \
 	fp16_sve_fmul.x \
 	fp16_sve_pred_fmul.x \
 	fp16_sve_indexed_fmla.x \
-	fp16_sve_pred_fmla.x
+	fp16_sve_pred_fmla.x \
+	i8_i32_sve_smmla.x
 
 KGEN = ../kgen.py
 MAKEFILE = ./Makefile
@@ -77,6 +79,9 @@ kernels/fp32_scalar_fmul.cpp: $(KGEN) $(MAKEFILE)
 
 kernels/fp32_scalar_fmadd.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) -b SCALAR 32 2 16 "fmadd" "s%d" "range(0,16)" "s%d" "range(8,24)" "s%d" "range(16,32)" "s%d" "range(0,16)" > $@
+
+kernels/u8_neon_add.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b NEON 32 1 16 "add" "v%d.16b" "range(0,16)" "v%d.16b" "range(8,24)" "v%d.16b" "range(16,32)" > $@
 
 kernels/fp32_neon_fmul.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) -b NEON 32 1 16 "fmul" "v%d.4s" "range(0,16)" "v%d.4s" "range(8,24)" "v%d.4s" "range(16,32)" > $@
@@ -143,6 +148,9 @@ kernels/fp16_sve_indexed_fmla.cpp: $(KGEN) $(MAKEFILE)
 
 kernels/fp16_sve_pred_fmla.cpp: $(KGEN) $(MAKEFILE)
 	$(KGEN) -b SVE 16 2 16 "fmla" "z%d.h" "range(0,16)" "p0/m" "None" "z%d.h" "range(8,24)" "z%d.h" "range(16,32)" > $@
+
+kernels/i8_i32_sve_smmla.cpp: $(KGEN) $(MAKEFILE)
+	$(KGEN) -b SVE 32 16 16 "smmla" "z%d.s" "range(0,16)" "z%d.b" "range(8,24)" "z%d.b" "range(16,32)" > $@
 
 
 
