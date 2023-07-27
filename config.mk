@@ -4,8 +4,8 @@
 # Author: John Linford <jlinford@nvidia.com>
 # 
 
-CXX = g++-12
-CXXFLAGS = -O -march=armv8-a+sve
+CXX = g++
+CXXFLAGS = -O -mcpu=neoverse-v2
 
 LD = $(CXX)
 LDFLAGS = 
