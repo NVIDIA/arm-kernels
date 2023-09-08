@@ -8,9 +8,9 @@
 //
 #include <arm_sve.h>
 
-const char * description = "4( 16(SVE_SMMLA_8b) )";
+const char * description = "4( 16(SVE_SMMLA_32b) )";
 unsigned long block_inst = 16;
-unsigned long block_ops = (16*(3*(8*svcntb()/8)));
+unsigned long block_ops = (16*(16*(8*svcntb()/32)));
 unsigned long unroll = 4;
 
 void kernel(unsigned long iters)

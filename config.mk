@@ -4,8 +4,9 @@
 # Author: John Linford <jlinford@nvidia.com>
 # 
 
+# GCC 12+ with binutils 2.38+ recommended
 CXX = g++
-CXXFLAGS = -O -mcpu=neoverse-v2
+CXXFLAGS = -O -march=armv9-a+i8mm
 
 LD = $(CXX)
 LDFLAGS = 
