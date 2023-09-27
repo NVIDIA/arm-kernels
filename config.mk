@@ -6,7 +6,7 @@
 
 # GCC 12+ with binutils 2.38+ recommended
 CXX = g++
-CXXFLAGS = -O -march=armv9-a+i8mm
+CXXFLAGS = -O -mcpu=native
 
 LD = $(CXX)
 LDFLAGS = 
