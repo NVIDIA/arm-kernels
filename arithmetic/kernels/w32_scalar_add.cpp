@@ -8,9 +8,9 @@
 //
 
 
-const char * description = "4( 8(SCALAR_ADD_32b) )";
-unsigned long block_inst = 8;
-unsigned long block_ops = (8*(1*1));
+const char * description = "4( 16(SCALAR_ADD_32b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(1*1));
 unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
@@ -25,6 +25,14 @@ void kernel(unsigned long iters)
         "add w5, w9, w13 \n\t"
         "add w6, w10, w14 \n\t"
         "add w7, w11, w15 \n\t"
+        "add w8, w12, w0 \n\t"
+        "add w9, w13, w1 \n\t"
+        "add w10, w14, w2 \n\t"
+        "add w11, w15, w3 \n\t"
+        "add w12, w0, w4 \n\t"
+        "add w13, w1, w5 \n\t"
+        "add w14, w2, w6 \n\t"
+        "add w15, w3, w7 \n\t"
         "add w0, w4, w8 \n\t"
         "add w1, w5, w9 \n\t"
         "add w2, w6, w10 \n\t"
@@ -33,6 +41,14 @@ void kernel(unsigned long iters)
         "add w5, w9, w13 \n\t"
         "add w6, w10, w14 \n\t"
         "add w7, w11, w15 \n\t"
+        "add w8, w12, w0 \n\t"
+        "add w9, w13, w1 \n\t"
+        "add w10, w14, w2 \n\t"
+        "add w11, w15, w3 \n\t"
+        "add w12, w0, w4 \n\t"
+        "add w13, w1, w5 \n\t"
+        "add w14, w2, w6 \n\t"
+        "add w15, w3, w7 \n\t"
         "add w0, w4, w8 \n\t"
         "add w1, w5, w9 \n\t"
         "add w2, w6, w10 \n\t"
@@ -41,6 +57,14 @@ void kernel(unsigned long iters)
         "add w5, w9, w13 \n\t"
         "add w6, w10, w14 \n\t"
         "add w7, w11, w15 \n\t"
+        "add w8, w12, w0 \n\t"
+        "add w9, w13, w1 \n\t"
+        "add w10, w14, w2 \n\t"
+        "add w11, w15, w3 \n\t"
+        "add w12, w0, w4 \n\t"
+        "add w13, w1, w5 \n\t"
+        "add w14, w2, w6 \n\t"
+        "add w15, w3, w7 \n\t"
         "add w0, w4, w8 \n\t"
         "add w1, w5, w9 \n\t"
         "add w2, w6, w10 \n\t"
@@ -49,6 +73,14 @@ void kernel(unsigned long iters)
         "add w5, w9, w13 \n\t"
         "add w6, w10, w14 \n\t"
         "add w7, w11, w15 \n\t"
+        "add w8, w12, w0 \n\t"
+        "add w9, w13, w1 \n\t"
+        "add w10, w14, w2 \n\t"
+        "add w11, w15, w3 \n\t"
+        "add w12, w0, w4 \n\t"
+        "add w13, w1, w5 \n\t"
+        "add w14, w2, w6 \n\t"
+        "add w15, w3, w7 \n\t"
         : /* no input */
         : /* no output */
         : "w0", "w1", "w10", "w11", "w12", "w13", "w14", "w15", "w2", "w3", "w4", "w5", "w6", "w7", "w8", "w9"

@@ -8,9 +8,9 @@
 //
 
 
-const char * description = "4( 8(SCALAR_ADD_64b) )";
-unsigned long block_inst = 8;
-unsigned long block_ops = (8*(1*1));
+const char * description = "4( 16(SCALAR_ADD_64b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(1*1));
 unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
@@ -25,6 +25,14 @@ void kernel(unsigned long iters)
         "add x5, x9, x13 \n\t"
         "add x6, x10, x14 \n\t"
         "add x7, x11, x15 \n\t"
+        "add x8, x12, x0 \n\t"
+        "add x9, x13, x1 \n\t"
+        "add x10, x14, x2 \n\t"
+        "add x11, x15, x3 \n\t"
+        "add x12, x0, x4 \n\t"
+        "add x13, x1, x5 \n\t"
+        "add x14, x2, x6 \n\t"
+        "add x15, x3, x7 \n\t"
         "add x0, x4, x8 \n\t"
         "add x1, x5, x9 \n\t"
         "add x2, x6, x10 \n\t"
@@ -33,6 +41,14 @@ void kernel(unsigned long iters)
         "add x5, x9, x13 \n\t"
         "add x6, x10, x14 \n\t"
         "add x7, x11, x15 \n\t"
+        "add x8, x12, x0 \n\t"
+        "add x9, x13, x1 \n\t"
+        "add x10, x14, x2 \n\t"
+        "add x11, x15, x3 \n\t"
+        "add x12, x0, x4 \n\t"
+        "add x13, x1, x5 \n\t"
+        "add x14, x2, x6 \n\t"
+        "add x15, x3, x7 \n\t"
         "add x0, x4, x8 \n\t"
         "add x1, x5, x9 \n\t"
         "add x2, x6, x10 \n\t"
@@ -41,6 +57,14 @@ void kernel(unsigned long iters)
         "add x5, x9, x13 \n\t"
         "add x6, x10, x14 \n\t"
         "add x7, x11, x15 \n\t"
+        "add x8, x12, x0 \n\t"
+        "add x9, x13, x1 \n\t"
+        "add x10, x14, x2 \n\t"
+        "add x11, x15, x3 \n\t"
+        "add x12, x0, x4 \n\t"
+        "add x13, x1, x5 \n\t"
+        "add x14, x2, x6 \n\t"
+        "add x15, x3, x7 \n\t"
         "add x0, x4, x8 \n\t"
         "add x1, x5, x9 \n\t"
         "add x2, x6, x10 \n\t"
@@ -49,6 +73,14 @@ void kernel(unsigned long iters)
         "add x5, x9, x13 \n\t"
         "add x6, x10, x14 \n\t"
         "add x7, x11, x15 \n\t"
+        "add x8, x12, x0 \n\t"
+        "add x9, x13, x1 \n\t"
+        "add x10, x14, x2 \n\t"
+        "add x11, x15, x3 \n\t"
+        "add x12, x0, x4 \n\t"
+        "add x13, x1, x5 \n\t"
+        "add x14, x2, x6 \n\t"
+        "add x15, x3, x7 \n\t"
         : /* no input */
         : /* no output */
         : "x0", "x1", "x10", "x11", "x12", "x13", "x14", "x15", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9"

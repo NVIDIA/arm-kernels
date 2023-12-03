@@ -8,9 +8,9 @@
 //
 
 
-const char * description = "4( 8(SCALAR_MUL_32b) )";
-unsigned long block_inst = 8;
-unsigned long block_ops = (8*(1*1));
+const char * description = "4( 16(SCALAR_MUL_32b) )";
+unsigned long block_inst = 16;
+unsigned long block_ops = (16*(1*1));
 unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
@@ -25,6 +25,14 @@ void kernel(unsigned long iters)
         "mul w5, w9, w13 \n\t"
         "mul w6, w10, w14 \n\t"
         "mul w7, w11, w15 \n\t"
+        "mul w8, w12, w0 \n\t"
+        "mul w9, w13, w1 \n\t"
+        "mul w10, w14, w2 \n\t"
+        "mul w11, w15, w3 \n\t"
+        "mul w12, w0, w4 \n\t"
+        "mul w13, w1, w5 \n\t"
+        "mul w14, w2, w6 \n\t"
+        "mul w15, w3, w7 \n\t"
         "mul w0, w4, w8 \n\t"
         "mul w1, w5, w9 \n\t"
         "mul w2, w6, w10 \n\t"
@@ -33,6 +41,14 @@ void kernel(unsigned long iters)
         "mul w5, w9, w13 \n\t"
         "mul w6, w10, w14 \n\t"
         "mul w7, w11, w15 \n\t"
+        "mul w8, w12, w0 \n\t"
+        "mul w9, w13, w1 \n\t"
+        "mul w10, w14, w2 \n\t"
+        "mul w11, w15, w3 \n\t"
+        "mul w12, w0, w4 \n\t"
+        "mul w13, w1, w5 \n\t"
+        "mul w14, w2, w6 \n\t"
+        "mul w15, w3, w7 \n\t"
         "mul w0, w4, w8 \n\t"
         "mul w1, w5, w9 \n\t"
         "mul w2, w6, w10 \n\t"
@@ -41,6 +57,14 @@ void kernel(unsigned long iters)
         "mul w5, w9, w13 \n\t"
         "mul w6, w10, w14 \n\t"
         "mul w7, w11, w15 \n\t"
+        "mul w8, w12, w0 \n\t"
+        "mul w9, w13, w1 \n\t"
+        "mul w10, w14, w2 \n\t"
+        "mul w11, w15, w3 \n\t"
+        "mul w12, w0, w4 \n\t"
+        "mul w13, w1, w5 \n\t"
+        "mul w14, w2, w6 \n\t"
+        "mul w15, w3, w7 \n\t"
         "mul w0, w4, w8 \n\t"
         "mul w1, w5, w9 \n\t"
         "mul w2, w6, w10 \n\t"
@@ -49,6 +73,14 @@ void kernel(unsigned long iters)
         "mul w5, w9, w13 \n\t"
         "mul w6, w10, w14 \n\t"
         "mul w7, w11, w15 \n\t"
+        "mul w8, w12, w0 \n\t"
+        "mul w9, w13, w1 \n\t"
+        "mul w10, w14, w2 \n\t"
+        "mul w11, w15, w3 \n\t"
+        "mul w12, w0, w4 \n\t"
+        "mul w13, w1, w5 \n\t"
+        "mul w14, w2, w6 \n\t"
+        "mul w15, w3, w7 \n\t"
         : /* no input */
         : /* no output */
         : "w0", "w1", "w10", "w11", "w12", "w13", "w14", "w15", "w2", "w3", "w4", "w5", "w6", "w7", "w8", "w9"

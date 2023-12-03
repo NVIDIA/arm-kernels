@@ -8,9 +8,9 @@
 //
 #include <arm_sve.h>
 
-const char * description = "4( 16(SVE_FMUL_16b) )";
-unsigned long block_inst = 16;
-unsigned long block_ops = (16*(1*(8*svcntb()/16)));
+const char * description = "4( 32(SVE_FMUL_16b) )";
+unsigned long block_inst = 32;
+unsigned long block_ops = (32*(1*(8*svcntb()/16)));
 unsigned long unroll = 4;
 
 void kernel(unsigned long iters)
@@ -33,6 +33,22 @@ void kernel(unsigned long iters)
         "fmul z13.h, p0/m, z13.h, z21.h \n\t"
         "fmul z14.h, p0/m, z14.h, z22.h \n\t"
         "fmul z15.h, p0/m, z15.h, z23.h \n\t"
+        "fmul z16.h, p0/m, z16.h, z24.h \n\t"
+        "fmul z17.h, p0/m, z17.h, z25.h \n\t"
+        "fmul z18.h, p0/m, z18.h, z26.h \n\t"
+        "fmul z19.h, p0/m, z19.h, z27.h \n\t"
+        "fmul z20.h, p0/m, z20.h, z28.h \n\t"
+        "fmul z21.h, p0/m, z21.h, z29.h \n\t"
+        "fmul z22.h, p0/m, z22.h, z30.h \n\t"
+        "fmul z23.h, p0/m, z23.h, z31.h \n\t"
+        "fmul z24.h, p0/m, z24.h, z0.h \n\t"
+        "fmul z25.h, p0/m, z25.h, z1.h \n\t"
+        "fmul z26.h, p0/m, z26.h, z2.h \n\t"
+        "fmul z27.h, p0/m, z27.h, z3.h \n\t"
+        "fmul z28.h, p0/m, z28.h, z4.h \n\t"
+        "fmul z29.h, p0/m, z29.h, z5.h \n\t"
+        "fmul z30.h, p0/m, z30.h, z6.h \n\t"
+        "fmul z31.h, p0/m, z31.h, z7.h \n\t"
         "fmul z0.h, p0/m, z0.h, z8.h \n\t"
         "fmul z1.h, p0/m, z1.h, z9.h \n\t"
         "fmul z2.h, p0/m, z2.h, z10.h \n\t"
@@ -49,6 +65,22 @@ void kernel(unsigned long iters)
         "fmul z13.h, p0/m, z13.h, z21.h \n\t"
         "fmul z14.h, p0/m, z14.h, z22.h \n\t"
         "fmul z15.h, p0/m, z15.h, z23.h \n\t"
+        "fmul z16.h, p0/m, z16.h, z24.h \n\t"
+        "fmul z17.h, p0/m, z17.h, z25.h \n\t"
+        "fmul z18.h, p0/m, z18.h, z26.h \n\t"
+        "fmul z19.h, p0/m, z19.h, z27.h \n\t"
+        "fmul z20.h, p0/m, z20.h, z28.h \n\t"
+        "fmul z21.h, p0/m, z21.h, z29.h \n\t"
+        "fmul z22.h, p0/m, z22.h, z30.h \n\t"
+        "fmul z23.h, p0/m, z23.h, z31.h \n\t"
+        "fmul z24.h, p0/m, z24.h, z0.h \n\t"
+        "fmul z25.h, p0/m, z25.h, z1.h \n\t"
+        "fmul z26.h, p0/m, z26.h, z2.h \n\t"
+        "fmul z27.h, p0/m, z27.h, z3.h \n\t"
+        "fmul z28.h, p0/m, z28.h, z4.h \n\t"
+        "fmul z29.h, p0/m, z29.h, z5.h \n\t"
+        "fmul z30.h, p0/m, z30.h, z6.h \n\t"
+        "fmul z31.h, p0/m, z31.h, z7.h \n\t"
         "fmul z0.h, p0/m, z0.h, z8.h \n\t"
         "fmul z1.h, p0/m, z1.h, z9.h \n\t"
         "fmul z2.h, p0/m, z2.h, z10.h \n\t"
@@ -65,6 +97,22 @@ void kernel(unsigned long iters)
         "fmul z13.h, p0/m, z13.h, z21.h \n\t"
         "fmul z14.h, p0/m, z14.h, z22.h \n\t"
         "fmul z15.h, p0/m, z15.h, z23.h \n\t"
+        "fmul z16.h, p0/m, z16.h, z24.h \n\t"
+        "fmul z17.h, p0/m, z17.h, z25.h \n\t"
+        "fmul z18.h, p0/m, z18.h, z26.h \n\t"
+        "fmul z19.h, p0/m, z19.h, z27.h \n\t"
+        "fmul z20.h, p0/m, z20.h, z28.h \n\t"
+        "fmul z21.h, p0/m, z21.h, z29.h \n\t"
+        "fmul z22.h, p0/m, z22.h, z30.h \n\t"
+        "fmul z23.h, p0/m, z23.h, z31.h \n\t"
+        "fmul z24.h, p0/m, z24.h, z0.h \n\t"
+        "fmul z25.h, p0/m, z25.h, z1.h \n\t"
+        "fmul z26.h, p0/m, z26.h, z2.h \n\t"
+        "fmul z27.h, p0/m, z27.h, z3.h \n\t"
+        "fmul z28.h, p0/m, z28.h, z4.h \n\t"
+        "fmul z29.h, p0/m, z29.h, z5.h \n\t"
+        "fmul z30.h, p0/m, z30.h, z6.h \n\t"
+        "fmul z31.h, p0/m, z31.h, z7.h \n\t"
         "fmul z0.h, p0/m, z0.h, z8.h \n\t"
         "fmul z1.h, p0/m, z1.h, z9.h \n\t"
         "fmul z2.h, p0/m, z2.h, z10.h \n\t"
@@ -81,9 +129,25 @@ void kernel(unsigned long iters)
         "fmul z13.h, p0/m, z13.h, z21.h \n\t"
         "fmul z14.h, p0/m, z14.h, z22.h \n\t"
         "fmul z15.h, p0/m, z15.h, z23.h \n\t"
+        "fmul z16.h, p0/m, z16.h, z24.h \n\t"
+        "fmul z17.h, p0/m, z17.h, z25.h \n\t"
+        "fmul z18.h, p0/m, z18.h, z26.h \n\t"
+        "fmul z19.h, p0/m, z19.h, z27.h \n\t"
+        "fmul z20.h, p0/m, z20.h, z28.h \n\t"
+        "fmul z21.h, p0/m, z21.h, z29.h \n\t"
+        "fmul z22.h, p0/m, z22.h, z30.h \n\t"
+        "fmul z23.h, p0/m, z23.h, z31.h \n\t"
+        "fmul z24.h, p0/m, z24.h, z0.h \n\t"
+        "fmul z25.h, p0/m, z25.h, z1.h \n\t"
+        "fmul z26.h, p0/m, z26.h, z2.h \n\t"
+        "fmul z27.h, p0/m, z27.h, z3.h \n\t"
+        "fmul z28.h, p0/m, z28.h, z4.h \n\t"
+        "fmul z29.h, p0/m, z29.h, z5.h \n\t"
+        "fmul z30.h, p0/m, z30.h, z6.h \n\t"
+        "fmul z31.h, p0/m, z31.h, z7.h \n\t"
         : /* no input */
         : /* no output */
-        : "z0", "z1", "z10", "z11", "z12", "z13", "z14", "z15", "z16", "z17", "z18", "z19", "z2", "z20", "z21", "z22", "z23", "z3", "z4", "z5", "z6", "z7", "z8", "z9"
+        : "z0", "z1", "z10", "z11", "z12", "z13", "z14", "z15", "z16", "z17", "z18", "z19", "z2", "z20", "z21", "z22", "z23", "z24", "z25", "z26", "z27", "z28", "z29", "z3", "z30", "z31", "z4", "z5", "z6", "z7", "z8", "z9"
         );
     }
 }

@@ -36,6 +36,9 @@ void kernel(unsigned long iters)
 }
 """
 
+def modrange(start, stop, mod):
+    return [(i % mod) for i in range(start, stop)]
+
 
 def usage_error(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
