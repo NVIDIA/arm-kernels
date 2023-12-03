@@ -12,6 +12,9 @@ all: $(DIRS)
 clean:
 	for i in $(DIRS) ; do $(MAKE) -C $$i clean ; done
 
+veryclean:
+	for i in $(DIRS) ; do $(MAKE) -C $$i veryclean ; done
+
 arithmetic:
 	$(MAKE) -C $@
 
